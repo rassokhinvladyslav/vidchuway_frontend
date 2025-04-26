@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+	•	Before applying major changes, confirm the intention by proposing a plan.
+	•	Ask clarifying questions if the task is ambiguous or could have multiple interpretations.
+	•	Prefer providing 2-3 alternative solutions for major architectural or refactoring decisions.
