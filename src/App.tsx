@@ -1,30 +1,32 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
-
-const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
-  cache: new InMemoryCache(),
-});
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apollo/client';
+import { theme } from './styles/theme';
+import { Layout } from './components/Layout';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 
 function App() {
-  return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          {/* Your app content will go here */}
-        </Router>
-      </ThemeProvider>
-    </ApolloProvider>
-  );
+    return (
+        <ErrorBoundary>
+            <ApolloProvider client={client}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Router>
+                        <Layout>
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </Layout>
+                    </Router>
+                </ThemeProvider>
+            </ApolloProvider>
+        </ErrorBoundary>
+    );
 }
 
-export default App;
+export default App; 
